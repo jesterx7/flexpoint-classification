@@ -67,8 +67,6 @@ record_read.pack(side=LEFT, fill="x", padx=5, pady=10)
 
 trv.configure(yscrollcommand=yscrollbar.set, xscrollcommand=xscrollbar.set)
 
-update_data('1_1.csv')
-
 win.geometry("800x600")
 win.resizable(False, False)
 win.title("Flexpoint")
