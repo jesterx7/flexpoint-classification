@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from PIL import ImageTk, Image
 import csv
 
 def update_data(filepath):
@@ -21,7 +22,7 @@ wrapper_data = LabelFrame(win, text="Data")
 
 wrapper_widget.pack(fill="both", padx=10, pady=10)
 wrapper_data.pack(fill="both", expand="yes", padx=10, pady=10)
-t_head = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+t_head = [i for i in range(17)]
 head_name = [
         '', 'pinky MCP', 'pinky PIP', 'ring MCP', 'ring PIP', 'middle MCP', 'middle PIP', 'index MCP', 'index PIP',
         'thumb MCP', 'thumb PIP', 'Accelerometer X', 'Accelerometer Y', 'Accelerometer Z', 'Magenetometer X',
@@ -48,7 +49,8 @@ yscrollbar.pack(side=RIGHT, fill="y")
 xscrollbar = ttk.Scrollbar(wrapper_data, orient="horizontal", command=trv.xview)
 xscrollbar.pack(side=BOTTOM, fill="x")
 
-label_logo = Label(wrapper_widget, text="Flexpoint")
+logo = ImageTk.PhotoImage(Image.open("Logo/flexpoint.png"))
+label_logo = Label(wrapper_widget, image=logo)
 label_logo.pack(side=TOP, padx=10)
 
 label_search = Label(wrapper_widget, text="Masukkan nama file ", anchor="w")
