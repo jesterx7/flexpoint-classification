@@ -12,6 +12,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.neural_network import MLPClassifier
 import joblib
 # load dataset
 dataset = read_csv('es1.csv', header=None)
@@ -35,9 +36,10 @@ names.append('SVM')
 # random forest
 models.append(RandomForestClassifier())
 names.append('RF')
-# gbm
-models.append(GradientBoostingClassifier())
-names.append('GBM')
+# MLP
+models.append(MLPClassifier())
+names.append('MLP')
+
 # evaluate models
 all_scores = list()
 

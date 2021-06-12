@@ -20,7 +20,7 @@ def load_dataset(prefix=''):
 	lstdir = listdir(data_dir)
 	for name in sorted(lstdir):
 		filename = data_dir + name
-		if filename == 'target.csv':
+		if name == 'targets.csv':
 			continue
 		df = read_csv(filename, header=None)
 		values = df.values
@@ -30,23 +30,22 @@ def load_dataset(prefix=''):
 def create_dataset(sequences, targets):
 	# create the transformed dataset
 	transformed = list()
-	n_vars = 10
+	n_vars = 16
 	n_steps = 100
 	# process each trace in turn
 	for i in range(len(sequences)):
 		seq = sequences[i]
 		vector = list()
 		# last n observations
-		for row in range(1, n_steps+1):
+		for row in range(n_steps):
 			for col in range(n_vars):
-				vector.append(seq[-row, col])
+				vector.append(seq[row, col])
 		# add output
 		vector.append(targets[i])
 		# store
 		transformed.append(vector)
 	# prepare array
 	transformed = array(transformed)
-	transformed = transformed.astype('float32')
 	return transformed
 
 # load dataset
