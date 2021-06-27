@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
+import matplotlib.pyplot as plt
+import pandas as pd
 import csv
 
 def update_data(filepath):
@@ -15,6 +17,20 @@ def update_data(filepath):
 def read_data():
 	filepath = str(entry.get()) + ".csv"
 	update_data(filepath)
+
+def displayGraph():
+	filepath = str(entry.get()) + ".csv"
+	lencol = 16
+	read_data = pd.read_csv(filepath, header=None)
+	
+	plt.figure(figsize=(16,2+(.7*lencol)), dpi=100)
+	for i, col in enumerate(read_data.columns):
+		plt.subplot((lencol+2) // 2, min(lencol,2), i+1)
+		plt.scatter(read_data.index, read_data[col], s=.7, label=f"Sensor ke-{col + 1}")
+		plt.legend(loc='upper left', frameon=True, fancybox=True, framealpha=0.7, facecolor='white')
+	plt.suptitle(f'Sensor Data Distrubution', y=1, fontsize=20)
+	plt.tight_layout()
+	plt.show()
 
 win = Tk()
 wrapper_widget = LabelFrame(win, text="Action")
@@ -62,8 +78,8 @@ entry.pack(fill="x", padx=5)
 button_read = Button(wrapper_widget, text="Read", command=read_data, anchor="n")
 button_read.pack(side=LEFT, fill="x", padx=5, pady=5)
 
-record_read = Button(wrapper_widget, text="Record", anchor="n")
-record_read.pack(side=LEFT, fill="x", padx=5, pady=10)
+button_graph = Button(wrapper_widget, text="Show Graph", command=displayGraph, anchor="n")
+button_graph.pack(side=LEFT, fill="x", padx=5, pady=10)
 
 trv.configure(yscrollcommand=yscrollbar.set, xscrollcommand=xscrollbar.set)
 
